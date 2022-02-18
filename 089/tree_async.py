@@ -10,13 +10,13 @@ tree = list(open('tree2.txt').read().rstrip())
 
 def colored_dot(color):
     if color == 'red':
-        return f'\033[91m⏺\033[0m'
+        return '\x1b[91m⏺\x1b[0m'
     if color == 'green':
-        return f'\033[92m⏺\033[0m'
+        return '\x1b[92m⏺\x1b[0m'
     if color == 'yellow':
-        return f'\033[93m⏺\033[0m'
+        return '\x1b[93m⏺\x1b[0m'
     if color == 'blue':
-        return f'\033[94m⏺\033[0m'
+        return '\x1b[94m⏺\x1b[0m'
 
 async def lights(color, indexes):
     off = True
@@ -38,17 +38,17 @@ green = []
 blue = []
 
 for i, c in enumerate(tree):
-    if c == 'Y':
-        yellow.append(i)
-        tree[i] = '⏺'
-    if c == 'R':
-        red.append(i)
-        tree[i] = '⏺'
-    if c == 'G':
-        green.append(i)
-        tree[i] = '⏺'
     if c == 'B':
         blue.append(i)
+        tree[i] = '⏺'
+    elif c == 'G':
+        green.append(i)
+        tree[i] = '⏺'
+    elif c == 'R':
+        red.append(i)
+        tree[i] = '⏺'
+    elif c == 'Y':
+        yellow.append(i)
         tree[i] = '⏺'
 
 async def main():

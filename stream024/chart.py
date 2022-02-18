@@ -10,7 +10,7 @@ ROWS = 16
 
 os.system('clear')
 
-data = [random.randint(0, 99) for i in range(COLUMNS)]
+data = [random.randint(0, 99) for _ in range(COLUMNS)]
 minimum = min(data)
 maximum = max(data)
 

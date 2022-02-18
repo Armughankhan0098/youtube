@@ -8,9 +8,7 @@ def handle(connection, client_address):
 	content = ''
 
 	while True:
-		data = connection.recv(1)
-
-		if data:
+		if data := connection.recv(1):
 			content += data.decode()
 		else:
 			break;

@@ -5,20 +5,10 @@ def calc_hand(hand):
     non_aces = [c for c in hand if c != 'A']
     aces = [c for c in hand if c == 'A']
 
-    sum = 0
+    sum = sum(10 if card in 'JQK' else int(card) for card in non_aces)
 
-    for card in non_aces:
-        if card in 'JQK':
-            sum += 10
-        else:
-            sum += int(card)
-
-    for card in aces:
-        if sum <= 10:
-            sum += 11
-        else:
-            sum += 1
-
+    for _ in aces:
+        sum += 11 if sum <= 10 else 1
     return sum
 
 while True:
@@ -31,11 +21,9 @@ while True:
 
     random.shuffle(cards)
 
-    dealer = []
-    player = []
+    player = [cards.pop()]
 
-    player.append(cards.pop())
-    dealer.append(cards.pop())
+    dealer = [cards.pop()]
     player.append(cards.pop())
     dealer.append(cards.pop())
 

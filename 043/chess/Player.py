@@ -47,8 +47,7 @@ def ai_turn():
         globVar.r_avail_Num = len(globVar.r_avail)
         availMoves = utils.mark_invalid_moves(availMoves, fromSqr.piece)
 
-        runagain = not utils.hasMoves(availMoves)
-        if runagain:
+        if runagain := not utils.hasMoves(availMoves):
             board.Grid(fromSqr.row, fromSqr.col).piece.selected = False
             am = fromSqr.piece.scan()
             utils.resetAvailMoves(am)
@@ -79,9 +78,7 @@ def human_turn():
 
         # remove invalid moves
         availMoves = utils.mark_invalid_moves(availMoves, fromSqr.piece)
-        runagain = not utils.hasMoves(availMoves)
-
-        if runagain:
+        if runagain := not utils.hasMoves(availMoves):
             board.Grid(fromSqr.row, fromSqr.col).piece.selected = False
             am = fromSqr.piece.scan()
             utils.resetAvailMoves(am)
@@ -123,13 +120,10 @@ def select():
 
 def choose(availMoves):
     Canvas.drawBoard()
-    choice = Canvas.chooseMove(len(availMoves))
-
-    return choice
+    return Canvas.chooseMove(len(availMoves))
 
 def randChoose(a):
     Canvas.drawBoard()
     if globVar.numPlayers == 1 or globVar.slow_speed:
         time.sleep(0.5)
-    choice = random.randint(0, 100) % a
-    return choice
+    return random.randint(0, 100) % a
