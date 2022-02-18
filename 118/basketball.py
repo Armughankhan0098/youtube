@@ -25,8 +25,8 @@ def monitor_hoop():
 
     start = time.time()
 
+    cycle = 6.25
     while True:
-        cycle = 6.25
         delta = time.time() - start
         perc1 = (delta % cycle) / cycle
 

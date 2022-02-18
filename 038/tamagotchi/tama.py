@@ -88,7 +88,7 @@ def updateDisplay():
 	funLabel.config(text=str(fun))
 	healthLabel.config(text=str(health))
 
-	dayLabel.config(text="day: " + str(day) + "    money: " + str(money))
+	dayLabel.config(text=f'day: {str(day)}    money: {str(money)}')
 
 	catPic.after(100, updateDisplay)
 
@@ -217,7 +217,7 @@ def heal():
 		else:
 			health == 100
 	else:
-		_thread.start_new_thread(updateLabel, (3, TAMA_NAME + " is healthy!"))
+		_thread.start_new_thread(updateLabel, (3, f'{TAMA_NAME} is healthy!'))
 
 #------------------------------------------------------------------
 
@@ -225,12 +225,11 @@ def isSick():
 
 	global sick, HUNGER_UPDATE
 
-	if sick != True:
-		if random.randint(1,100) <= SICK_PERCENTAGE:
-			sick = True
-			skullPhoto.config(image = skull)
-			HUNGER_UPDATE *= 2
-			_thread.start_new_thread(updateLabel, (2, TAMA_NAME + " is sick!"))
+	if sick != True and random.randint(1, 100) <= SICK_PERCENTAGE:
+		sick = True
+		skullPhoto.config(image = skull)
+		HUNGER_UPDATE *= 2
+		_thread.start_new_thread(updateLabel, (2, f'{TAMA_NAME} is sick!'))
 
 #-------------------------------------------------------------------
 
@@ -240,7 +239,7 @@ def isAlive():
 
 	if hunger <= 0 or fun <= 0 or health <= 0:
 		catPic.config(image = deadphoto)
-		_thread.start_new_thread(updateLabel, (2, TAMA_NAME + " has died!"))
+		_thread.start_new_thread(updateLabel, (2, f'{TAMA_NAME} has died!'))
 		startLabel.config(text="Game Over!")
 		endGame()
 		if tkinter.messagebox.askyesno("Play again?", "Do you want to play again?"):
@@ -289,7 +288,7 @@ def meatFunction(delay):
 			money -= 15
 			meatApplied = True
 
-			_thread.start_new_thread(updateLabel, (3, TAMA_NAME + " is eating!"))
+			_thread.start_new_thread(updateLabel, (3, f'{TAMA_NAME} is eating!'))
 			time.sleep(delay)
 			btnFeed.config(state="normal")
 			meatApplied = False
@@ -325,16 +324,23 @@ def hospitalFun():
 #-------------------------------------------------------------------
 
 def rules():
-	tkinter.messagebox.showinfo( TAMA_NAME,
-		"たまごっち" + TAMA_NAME + ", these are the rules!\n\n" +
-		"1. Don't let " + TAMA_NAME + "'s needs fall to zero, it will die!\n" +
-		"2. If " + TAMA_NAME + " gets sick, cure it as soon as possible! It doesn't eat or play until you do and its needs detoriate quicker.\n" +
-		"3. Too much of everything hurts. Do not feed " + TAMA_NAME + " when it's full!\n" +
-		"4. The more you play with " + TAMA_NAME + ", the less enjoyment it gets. Try to change things up a little" +
-		"\n\nShop:\n"+
-		"Piece of meat: Fills " + TAMA_NAME + " so you don' have to feed it for a period of time\n" +
-		"Ball: Decreases the decay rate of " + TAMA_NAME + "'s fun\n" +
-		"Hospital: Decreases " + TAMA_NAME + "'a percentage of falling sick\n")
+	tkinter.messagebox.showinfo(
+	    TAMA_NAME,
+	    (((((((((((((((((
+	        (((((f'たまごっち{TAMA_NAME}' + ", these are the rules!\n\n" +
+	             "1. Don't let ") + TAMA_NAME) +
+	           "'s needs fall to zero, it will die!\n") + "2. If ") + TAMA_NAME) +
+	        " gets sick, cure it as soon as possible! It doesn't eat or play until you do and its needs detoriate quicker.\n"
+	    ) + "3. Too much of everything hurts. Do not feed ") + TAMA_NAME) +
+	                  " when it's full!\n") + "4. The more you play with ") +
+	                TAMA_NAME) +
+	               ", the less enjoyment it gets. Try to change things up a little"
+	               ) + "\n\nShop:\n") + "Piece of meat: Fills ") + TAMA_NAME) +
+	           " so you don' have to feed it for a period of time\n") +
+	          "Ball: Decreases the decay rate of ") + TAMA_NAME) + "'s fun\n") +
+	       "Hospital: Decreases ") + TAMA_NAME) +
+	     "'a percentage of falling sick\n"),
+	)
 
 #---All-the-ugly-code-----------------------------------------------
 
@@ -371,7 +377,11 @@ healthLabel = tkinter.Label(root, text=str(health), font=("Helvetica", 12))
 healthText = tkinter.Label(root, text="Health: ", font=("Helvetica", 12))
 healthLabel.place(relx=0.35, rely=0.17, anchor="w")
 healthText.place(relx=0.35, rely=0.17, anchor="e")
-dayLabel = tkinter.Label(root, text="day: " + str(day) + "    money: " + str(money), font=("Helvetica", 12))
+dayLabel = tkinter.Label(
+    root,
+    text=f'day: {str(day)}    money: {str(money)}',
+    font=("Helvetica", 12),
+)
 dayLabel.place(relx=0.5, rely=0.22, anchor="center")
 imageLabel = tkinter.Label(root, text="", font=("Helvetica", 12))
 imageLabel.place(relx=0.5, rely=0.685, anchor="center")
@@ -416,10 +426,7 @@ root.bind("<space>", startGame)
 
 #User inputs
 TAMA_NAME = tkinter.simpledialog.askstring("Name", "What's Tamagotchi's name?", initialvalue = "Tamagotchi")
-if not TAMA_NAME:
-	TAMA_NAME = "Tamako"
-else:
-	TAMA_NAME = TAMA_NAME.upper()
+TAMA_NAME = "Tamako" if not TAMA_NAME else TAMA_NAME.upper()
 rules()
 
 #start the GUI

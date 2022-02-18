@@ -21,19 +21,16 @@ def simulate(queue, batch_size):
 		]
 
 		# add more decks
-		std_deck = std_deck * num_decks
+		std_deck *= num_decks
 
 		random.shuffle(std_deck)
 
 		return std_deck[:]
 
 	def play_hand():
-		dealer_cards = []
-		player_cards = []
+		player_cards = [deck.pop(0)]
 
-		# deal initial cards
-		player_cards.append(deck.pop(0))
-		dealer_cards.append(deck.pop(0))
+		dealer_cards = [deck.pop(0)]
 		player_cards.append(deck.pop(0))
 		dealer_cards.append(deck.pop(0))
 
@@ -112,7 +109,7 @@ queue = multiprocessing.Queue()
 # create n processes
 processes = []
 
-for i in range(0, cpus):
+for _ in range(cpus):
 	process = multiprocessing.Process(target=simulate, args=(queue, batch_size))
 	processes.append(process)
 	process.start()
@@ -128,7 +125,7 @@ win = 0
 draw = 0
 lose = 0
 
-for i in range(0, cpus):
+for _ in range(cpus):
 	results = queue.get()
 	win += results[0]
 	draw += results[1]

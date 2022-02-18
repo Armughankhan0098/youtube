@@ -9,9 +9,8 @@ soup = BeautifulSoup(html, 'html.parser')
 table = []
 
 for element in soup.find_all('div', { 'class': 'event row featured'}):
-    row = []
+    row = [element.find('span', { 'itemprop': 'streetAddress' }).text]
 
-    row.append(element.find('span', { 'itemprop': 'streetAddress' }).text)
     row.append(element.find('span', { 'itemprop': 'addressLocality' }).text)
     row.append(element.find_all('span', { 'itemprop': 'addressRegion'})[0].text)
     row.append(element.find_all('span', { 'itemprop': 'addressRegion'})[1].text)

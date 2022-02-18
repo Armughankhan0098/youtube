@@ -64,7 +64,7 @@ moves = 1
 colors = []
 
 while True:
-    for i in range(moves):
+    for _ in range(moves):
         color = detect_next()
         print(f'detected {color}')
 
@@ -75,14 +75,14 @@ while True:
     time.sleep(1)
 
     for color in colors:
-        if color == 'g':
-            device.shell('input tap 300 450')
-        if color == 'y':
-            device.shell('input tap 300 1450')
-        if color == 'r':
-            device.shell('input tap 800 450')
         if color == 'b':
             device.shell('input tap 800 1450')
 
+        elif color == 'g':
+            device.shell('input tap 300 450')
+        elif color == 'r':
+            device.shell('input tap 800 450')
+        elif color == 'y':
+            device.shell('input tap 300 1450')
     moves += 1
     colors = []

@@ -12,10 +12,10 @@ repos = [
 
 results = []
 
+last_commit = 'None'
+
 for repo in repos:
     commits = requests.get(f'https://api.github.com/repos/{repo}/commits').json()
-
-    last_commit = 'None'
 
     commit = commits[0]
 

@@ -2,11 +2,7 @@
 
 import math
 
-total = 0
-
 numbers = open('input.txt').read().strip().split('\n')
 
-for number in numbers:
-    total += math.floor(int(number) / 3) - 2
-
+total = sum(math.floor(int(number) / 3) - 2 for number in numbers)
 print(total)
